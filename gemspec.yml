@@ -1,0 +1,21 @@
+name: ronin-web-user_agents
+summary: random User-Agent strings
+description: |
+  Yet another User-Agent randomiser library.
+
+license: LGPL-3.0
+authors: Postmodern
+email: postmodern.mod3@gmail.com
+homepage: https://ronin-rb.dev/
+has_yard: true
+
+metadata:
+  documentation_uri: https://rubydoc.info/gems/ronin-web-user_agents
+  source_code_uri:   https://github.com/ronin-rb/ronin-web-user_agents
+  bug_tracker_uri:   https://github.com/ronin-rb/ronin-web-user_agents/issues
+  changelog_uri:     https://github.com/ronin-rb/ronin-web-user_agents/blob/master/ChangeLog.md
+
+required_ruby_version: ">= 2.7.0"
+
+development_dependencies:
+  bundler: ~> 2.0
