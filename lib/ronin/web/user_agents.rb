@@ -70,8 +70,6 @@ module Ronin
       # @api public
       #
       def categories
-        reload!
-
         @user_agents.keys
       end
 
@@ -109,8 +107,6 @@ module Ronin
       # @api public
       #
       def [](key)
-        reload!
-
         case key
         when Symbol
           if @user_agents.has_key?(key)
@@ -162,30 +158,6 @@ module Ronin
         end
 
         return string
-      end
-
-      protected
-
-      #
-      # Reloads the set of User-Agents.
-      #
-      # @api private
-      #
-      def reload!
-        Config.each_data_file(FILE) do |path|
-          next if @files.include?(path)
-
-          data = YAML.load_file(path)
-
-          unless data.kind_of?(Hash)
-            warn "#{path.dump} did not contain a Hash"
-            next
-          end
-
-          data.each do |name,strings|
-            @user_agents[name.to_sym].merge(strings)
-          end
-        end
       end
 
     end
