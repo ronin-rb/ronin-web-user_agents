@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'ronin/web/user_agents'
 
-describe Web::UserAgents do
+describe Ronin::Web::UserAgents do
   it "should list the categories of User-Agent strings" do
     expect(subject.categories).not_to be_empty
   end
