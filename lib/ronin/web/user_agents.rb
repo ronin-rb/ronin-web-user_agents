@@ -19,8 +19,6 @@
 # along with ronin-web-user_agents.  If not, see <https://www.gnu.org/licenses/>
 #
 
-require 'ronin/web/config'
-
 require 'set'
 
 module Ronin
