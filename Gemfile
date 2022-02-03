@@ -8,6 +8,8 @@ group :development do
   gem 'rake'
   gem 'rubygems-tasks', '~> 0.2'
 
+  gem 'user_agent_parser', '~> 2.0'
+
   gem 'rspec',          '~> 3.0'
   gem 'simplecov',      '~> 0.20'
 
