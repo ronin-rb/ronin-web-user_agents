@@ -49,23 +49,39 @@ Dir['data/user_agents/*.txt'].each do |txt_path|
           user_agent
           family
           version
+          version_major
+          version_minor
+          version_patch
+          version_patch_minor
           os_family
           os_version
+          os_version_major
+          os_version_minor
+          os_version_patch
+          os_version_patch_minor
           device_family
           device_model
           device_brand
         ]
 
         txt_file.each_line do |line|
-          user_agent_raw = line.chomp
-          user_agent     = UserAgentParser.parse(user_agent_raw)
+          user_agent_string = line.chomp
+          user_agent        = UserAgentParser.parse(user_agent_string)
 
           csv << [
-            user_agent_raw,
+            user_agent_string,
             user_agent.family,
             user_agent.version,
+            (user_agent.version.major if user_agent.version),
+            (user_agent.version.minor if user_agent.version),
+            (user_agent.version.patch if user_agent.version),
+            (user_agent.version.patch_minor if user_agent.version),
             user_agent.os.family,
             user_agent.os.version,
+            (user_agent.os.version.major if user_agent.os.version),
+            (user_agent.os.version.minor if user_agent.os.version),
+            (user_agent.os.version.patch if user_agent.os.version),
+            (user_agent.os.version.patch_minor if user_agent.os.version),
             user_agent.device.family,
             user_agent.device.model,
             user_agent.device.brand
