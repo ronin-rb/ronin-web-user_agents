@@ -19,147 +19,272 @@
 # along with ronin-web-user_agents.  If not, see <https://www.gnu.org/licenses/>
 #
 
-require 'set'
+require 'ronin/web/user_agents/category'
 
 module Ronin
   module Web
     #
-    # Represents the set of `User-Agent` strings loaded from all
-    # `data/ronin/web/user_agents.yml` files.
+    # Provides categories of common `User-Agent` strings.
     #
-    # ## ronin/web/user_agents.yml
+    # ## Example
     #
-    # The `user_agent.yml` files are essentially YAML files listing
-    # `User-Agent` strings grouped by category:
+    # Get a random `User-Agent` string:
     #
-    #     ---
-    #     :googlebot:
-    #       - "Googlebot/2.1 ( http://www.googlebot.com/bot.html)"
-    #       - "Googlebot-Image/1.0 ( http://www.googlebot.com/bot.html)"
-    #       - "Mediapartners-Google/2.1"
-    #       - "Google-Sitemaps/1.0"
+    #     user_agent = Ronin::Web::UserAgents.random
     #
-    # These files can be added to Ronin Repositories or to Ronin libraries,
-    # and will be loaded by the {UserAgents} objects. 
+    # Get a random `googlebot` `User-Agent` string:
     #
-    # @since 0.3.0
+    #     user_agent = Ronin::Web::UserAgents.googlebot.random
     #
-    class UserAgents
+    # Get a random Chrome `User-Agent` string:
+    #
+    #     user_agent = Ronin::Web::UserAgents.chrome.random
+    #
+    # Get a random Firefox `User-Agent` string:
+    #
+    #     user_agent = Ronin::Web::UserAgents.firefox.random
+    #
+    # Get a random iOS `User-Agent` string:
+    #
+    #     user_agent = Ronin::Web::UserAgents.ios.random
+    #
+    # Get a random Android `User-Agent` string:
+    #
+    #     user_agent = Ronin::Web::UserAgents.android.random
+    #
+    # Get a random Mobile `User-Agent` string:
+    #
+    #     user_agent = Ronin::Web::UserAgents.mobile.random
+    #
+    # Get a random browser `User-Agent` string:
+    #
+    #     user_agent = Ronin::Web::UserAgents.browser.random
+    #
+    # Get a random bot `User-Agent` string:
+    #
+    #     user_agent = Ronin::Web::UserAgents.bots.random
+    #
+    module UserAgents
 
-      include Enumerable
-      
-      # Relative path to the User-Agents file.
-      FILE = File.join('ronin','web','user_agents.yml')
-
       #
-      # Creates a new User-Agent set.
+      # `googlebot` `User-Agent` strings.
       #
-      # @api semipublic
+      # @return [Category]
       #
-      def initialize
-        @files = Set[]
-        @user_agents = Hash.new { |hash,key| hash[key] = Set[] }
-      end
-
-      # 
-      # The categories of `User-Agent` strings.
-      #
-      # @return [Array<Symbol>]
-      #   The names of the categories.
+      # @example
+      #   user_agent = Ronin::Web::UserAgents.googlebot.random
       #
       # @api public
       #
-      def categories
-        @user_agents.keys
+      def self.googlebot
+        @googlebot ||= Category.load('googlebot')
       end
 
       #
-      # Iterates over each User-Agent in the set.
+      # All bot `User-Agent` strings.
       #
-      # @yield [ua]
-      #   The given block will be passed each User-Agent.
+      # @return [Category]
       #
-      # @yieldparam [String] ua
-      #   A User-Agent string within the set.
-      #
-      # @return [Enumerator]
-      #   If no block is given, an Enumerator will be returned.
+      # @example
+      #   user_agent = Ronin::Web::UserAgents.bots.random
       #
       # @api public
       #
-      def each(&block)
-        return enum_for(:each) unless block_given?
-
-        @user_agents.each do |name,strings|
-          strings.each(&block)
-        end
+      def self.bots
+        @bots ||= googlebot
       end
 
       #
-      # Selects a `User-Agent` string from the set.
+      # Google Chrome `User-Agent` strings.
       #
-      # @param [Symbol, String, Regexp] key
-      #   The User-Agents group name, sub-string or Regexp to search for.
+      # @return [Category]
+      #
+      # @example
+      #   user_agent = Ronin::Web::UserAgents.chrome.random
+      #
+      # @api public
+      #
+      def self.chrome
+        @chrome ||= Category.load('chrome')
+      end
+
+      #
+      # Alias for {#chrome}.
+      #
+      # @return [Category]
+      #
+      # @see chrome
+      #
+      # @api public
+      #
+      def self.google_chrome
+        chrome
+      end
+
+      #
+      # Firefox `User-Agent` strings.
+      #
+      # @return [Category]
+      #
+      # @example
+      #   user_agent = Ronin::Web::UserAgents.firefox.random
+      #
+      # @api public
+      #
+      def self.firefox
+        @firefox ||= Category.load('firefox')
+      end
+
+      #
+      # Microsoft Edge `User-Agent` strings.
+      #
+      # @return [Category]
+      #
+      # @example
+      #   user_agent = Ronin::Web::UserAgents.edge.random
+      #
+      # @api public
+      #
+      def self.edge
+        @edge ||= Category.load('safari')
+      end
+
+      #
+      # Brave `User-Agent` strings.
+      #
+      # @return [Category]
+      #
+      # @example
+      #   user_agent = Ronin::Web::UserAgents.brave.random
+      #
+      # @api public
+      #
+      def self.brave
+        @brave ||= Category.load('brave')
+      end
+
+      #
+      # Safari `User-Agent` strings.
+      #
+      # @return [Category]
+      #
+      # @example
+      #   user_agent = Ronin::Web::UserAgents.safari.random
+      #
+      # @api public
+      #
+      def self.safari
+        @safari ||= Category.load('safari')
+      end
+
+      #
+      # Opera `User-Agent` strings.
+      #
+      # @return [Category]
+      #
+      # @example
+      #   user_agent = Ronin::Web::UserAgents.opera.random
+      #
+      # @api public
+      #
+      def self.opera
+        @opera ||= Category.load('opera')
+      end
+
+      #
+      # iOS `User-Agent` strings.
+      #
+      # @return [Category]
+      #
+      # @example
+      #   user_agent = Ronin::Web::UserAgents.ios.random
+      #
+      # @api public
+      #
+      def self.ios
+        @ios ||= Category.load('ios')
+      end
+
+      #
+      # Android `User-Agent` strings.
+      #
+      # @return [Category]
+      #
+      # @example
+      #   user_agent = Ronin::Web::UserAgents.android.random
+      #
+      # @api public
+      #
+      def self.android
+        @android ||= Category.load('android')
+      end
+
+      #
+      # All mobile `User-Agent` strings.
+      #
+      # @return [Category]
+      #
+      # @example
+      #   user_agent = Ronin::Web::UserAgents.mobile.random
+      #
+      # @api public
+      #
+      def self.mobile
+        @mobile ||= ios + android
+      end
+
+      #
+      # All browser `User-Agent` strings.
+      #
+      # @return [Category]
+      #
+      # @example
+      #   user_agent = Ronin::Web::UserAgents.browsers.random
+      #
+      # @api public
+      #
+      def self.browsers
+        @browsers ||= chrome + firefox + edge + brave + safari + opera + \
+                      ios + android
+      end
+
+      #
+      # Returns a random `User-Agent` string from one of the categories:
+      #
+      # * {#googlebot}
+      # * {#chrome}
+      # * {#firefox}
+      # * {#edge}
+      # * {#brave}
+      # * {#safari}
+      # * {#opera}
+      # * {#ios}
+      # * {#android}
+      #
+      # @yield [user_agent]
+      #   If a block is given, it will be used to filter the User Agents
+      #   before picking a random User Agent.
+      #
+      # @yieldparam [UserAgent] user_agent
+      #   A User Agent from the category.
       #
       # @return [String, nil]
-      #   The matching `User-Agent` string.
+      #   A random `User-Agent` string from the category.
+      #   Note, `nil` can be returned if the given block filter out all User
+      #   Agents.
       #
-      # @api public
-      #
-      def [](key)
-        case key
-        when Symbol
-          if @user_agents.has_key?(key)
-            strings = @user_agents[key]
-            return strings.entries[rand(strings.length)]
-          end
-        when String
-          @user_agents.each do |name,strings|
-            strings.each do |string|
-              return string if string.include?(key)
-            end
-          end
+      def self.random(&block)
+        method = [
+          # bots
+          :googlebot,
+          # browsers
+          :chrome, :firefox, :edge, :brave, :safari, :opera,
+          # mobile
+          :ios, :android
+        ].sample
 
-          return nil
-        when Regexp
-          @user_agents.each do |name,strings|
-            strings.each do |string|
-              return string if string =~ key
-            end
-          end
-
-          return nil
-        else
-          raise(TypeError,"key must be a Symbol, String or Regexp")
-        end
+        return send(method).random(&block)
       end
-
-      #
-      # Fetches a `User-Agent` string from the set.
-      #
-      # @param [Symbol, String, Regexp] key
-      #   The User-Agents group name, sub-string or Regexp to search for.
-      #
-      # @param [String] default
-      #   The `User-Agent` string to default to if no match is found.
-      #
-      # @return [String]
-      #   The matching `User-Agent` string.
-      #
-      # @raise [ArgumentError]
-      #   No matching `User-Agent` string was found, and no default value
-      #   was given.
-      #
-      # @api public
-      #
-      def fetch(key,default=nil)
-        unless (string = (self[key] || default))
-          raise(ArgumentError,"no User-Agent strings match #{key.inspect}")
-        end
-
-        return string
-      end
-
     end
   end
 end

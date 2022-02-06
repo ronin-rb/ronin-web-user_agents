@@ -21,7 +21,7 @@
 
 module Ronin
   module Web
-    class UserAgents
+    module UserAgents
       # ronin-web-user_agents version
       VERSION = '0.1.0'
     end

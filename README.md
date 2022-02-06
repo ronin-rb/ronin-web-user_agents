@@ -20,10 +20,60 @@ Yet another `User-Agent` randomiser library.
 * Curated lists of common `User-Agent` strings.
 * Zero dependencies.
 
-## Synopsis
+## Examples
 
-```shell
-$ ronin-web-user_agents
+Get a random `User-Agent` string:
+
+```ruby
+user_agent = Ronin::Web::UserAgents.random
+```
+
+Get a random `googlebot` `User-Agent` string:
+
+```ruby
+user_agent = Ronin::Web::UserAgents.googlebot.random
+```
+
+Get a random Chrome `User-Agent` string:
+
+```ruby
+user_agent = Ronin::Web::UserAgents.chrome.random
+```
+
+Get a random Firefox `User-Agent` string:
+
+```ruby
+user_agent = Ronin::Web::UserAgents.firefox.random
+```
+
+Get a random iOS `User-Agent` string:
+
+```ruby
+user_agent = Ronin::Web::UserAgents.ios.random
+```
+
+Get a random Android `User-Agent` string:
+
+```ruby
+user_agent = Ronin::Web::UserAgents.android.random
+```
+
+Get a random Mobile `User-Agent` string:
+
+```ruby
+user_agent = Ronin::Web::UserAgents.mobile.random
+```
+
+Get a random browser `User-Agent` string:
+
+```ruby
+user_agent = Ronin::Web::UserAgents.browser.random
+```
+
+Get a random bot `User-Agent` string:
+
+```ruby
+user_agent = Ronin::Web::UserAgents.bots.random
 ```
 
 ## Requirements
