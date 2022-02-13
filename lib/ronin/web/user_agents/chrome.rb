@@ -265,7 +265,7 @@ module Ronin
         # @param [:arm, :arm64, nil] arch
         #   The optional hardware architecture.
         #
-        # @param [String, nil] device
+        # @param [String, nil] android_device
         #   The optional Android device.
         #
         def self.build_android(chrome_version: , android_version: , arch: nil, android_device: nil)
