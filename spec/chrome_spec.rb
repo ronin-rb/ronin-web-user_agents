@@ -353,5 +353,134 @@ describe Ronin::Web::UserAgents::Chrome do
   end
 
   describe ".random" do
+    it "must return a random Chrome User-Agent string" do
+      expect(subject.random).to match(
+        %r{^Mozilla/5\.0 \([^\)]+\) AppleWebKit/537\.36 \(KHTML, like Gecko\) Chrome/\d+(\.\d+)* (?:Mobile )?Safari/537\.36$}
+      )
+    end
+
+    it "must generate a new random Chrome User-Agent string each time" do
+      expect(subject.random).to_not eq(subject.random)
+    end
+
+    context "when `os: :windows`" do
+      let(:os) { :windows }
+
+      it "must return a random Windows Chrome User-Agent string" do
+        expect(subject.random(os: os)).to match(
+          %r{^Mozilla/5\.0 \(Windows NT \d+(?:\.\d+)*(?:; (?:WOW64|Win64; x64))?\) AppleWebKit/537\.36 \(KHTML, like Gecko\) Chrome/\d+(\.\d+)* (?:Mobile )?Safari/537\.36$}
+        )
+      end
+
+      context "and when given `os_version:`" do
+        let(:os_version) { 10 }
+
+        it "must return a random Windows Chrome User-Agent string for that version of Windows" do
+          expect(subject.random(os: os, os_version: os_version)).to match(
+            %r{^Mozilla/5\.0 \(Windows NT 10\.0(?:; (?:WOW64|Win64; x64))?\) AppleWebKit/537\.36 \(KHTML, like Gecko\) Chrome/\d+(\.\d+)* (?:Mobile )?Safari/537\.36$}
+          )
+        end
+      end
+
+      context "and when given `arch: :wow64`" do
+        let(:arch) { :wow64 }
+
+        it "must return a random Windows Chrome User-Agent string for the WOW64 architecture" do
+          expect(subject.random(os: os, arch: arch)).to match(
+            %r{^Mozilla/5\.0 \(Windows NT \d+(?:\.\d+)*; WOW64\) AppleWebKit/537\.36 \(KHTML, like Gecko\) Chrome/\d+(\.\d+)* (?:Mobile )?Safari/537\.36$}
+          )
+        end
+      end
+
+      context "and when given `arch: :win64`" do
+        let(:arch) { :win64 }
+
+        it "must return a random Windows Chrome User-Agent string for the WOW64 architecture" do
+          expect(subject.random(os: os, arch: arch)).to match(
+            %r{^Mozilla/5\.0 \(Windows NT \d+(?:\.\d+)*; Win64; x64\) AppleWebKit/537\.36 \(KHTML, like Gecko\) Chrome/\d+(\.\d+)* (?:Mobile )?Safari/537\.36$}
+          )
+        end
+      end
+    end
+
+    context "when `os: :macos` is given" do
+      let(:os) { :macos }
+
+      it "must return a macOS Chrome User-Agent string" do
+        expect(subject.random(os: os)).to match(
+          %r{^Mozilla/5\.0 \(Macintosh; Intel Mac OS X \d+(_\d+){1,2}\) AppleWebKit/537\.36 \(KHTML, like Gecko\) Chrome/\d+(\.\d+)* (?:Mobile )?Safari/537\.36$}
+        )
+      end
+
+      context "and when `os_version:` is given" do
+        let(:os_version) { '10.11.12' }
+
+        it "must return a macOS Chrome User-Agent string for that macOS version" do
+          expect(subject.random(os: os, os_version: os_version)).to match(
+            %r{^Mozilla/5\.0 \(Macintosh; Intel Mac OS X 10_11_12\) AppleWebKit/537\.36 \(KHTML, like Gecko\) Chrome/\d+(\.\d+)* (?:Mobile )?Safari/537\.36$}
+          )
+        end
+      end
+    end
+
+    context "when `os: :linux` is given" do
+      let(:os) { :linux }
+
+      it "must return a Linux Chrome User-Agent string" do
+        expect(subject.random(os: os)).to match(
+          %r{^Mozilla/5\.0 \(X11(?:; (?:Ubuntu|Fedora|Arch))?; Linux (?:x86_64|aarch64|i686)\) AppleWebKit/537\.36 \(KHTML, like Gecko\) Chrome/\d+(\.\d+)* (?:Mobile )?Safari/537\.36$}
+        )
+      end
+
+      context "and when `linux_distro:` is given" do
+        let(:linux_distro) { :ubuntu }
+
+        it "must return a Linux Chrome User-Agent string for that Linux Distro" do
+          expect(subject.random(os: os, linux_distro: linux_distro)).to match(
+          %r{^Mozilla/5\.0 \(X11; Ubuntu; Linux (?:x86_64|aarch64|i686)\) AppleWebKit/537\.36 \(KHTML, like Gecko\) Chrome/\d+(\.\d+)* (?:Mobile )?Safari/537\.36$}
+          )
+        end
+      end
+
+      context "and when `arch:` is given" do
+        let(:arch) { :arm64 }
+
+        it "must return a Linux Chrome User-Agent string for that architecture" do
+          expect(subject.random(os: os, arch: arch)).to match(
+          %r{^Mozilla/5\.0 \(X11(?:; (?:Ubuntu|Fedora|Arch))?; Linux aarch64\) AppleWebKit/537\.36 \(KHTML, like Gecko\) Chrome/\d+(\.\d+)* (?:Mobile )?Safari/537\.36$}
+          )
+        end
+      end
+    end
+ 
+    context "when `os: :android` is given" do
+      let(:os) { :android }
+
+      it "must return a Android Chrome User-Agent string" do
+        expect(subject.random(os: os)).to match(
+          %r{^Mozilla/5\.0 \(Linux(?:; (?:arm|arm_64)); Android \d+(?:\.\d+)*\) AppleWebKit/537\.36 \(KHTML, like Gecko\) Chrome/\d+(\.\d+)* (?:Mobile )?Safari/537\.36$}
+        )
+      end
+
+      context "and when `os_version:` is given" do
+        let(:os_version) { '8.1' }
+
+        it "must return a Android Chrome User-Agent string for that Android version" do
+          expect(subject.random(os: os, os_version: os_version)).to match(
+            %r{^Mozilla/5\.0 \(Linux(?:; (?:arm|arm_64)); Android 8\.1\) AppleWebKit/537\.36 \(KHTML, like Gecko\) Chrome/\d+(\.\d+)* (?:Mobile )?Safari/537\.36$}
+          )
+        end
+      end
+
+      context "and when `arch:` is given" do
+        let(:arch) { :arm64 }
+
+        it "must return a Linux Chrome User-Agent string for that architecture" do
+          expect(subject.random(os: os, arch: arch)).to match(
+            %r{^Mozilla/5\.0 \(Linux; arm_64; Android (?:\d+(?:\.\d+)*)\) AppleWebKit/537\.36 \(KHTML, like Gecko\) Chrome/\d+(\.\d+)* (?:Mobile )?Safari/537\.36$}
+          )
+        end
+      end
+    end
   end
 end
