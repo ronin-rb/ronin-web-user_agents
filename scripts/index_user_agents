@@ -1,0 +1,281 @@
+#!/usr/bin/env ruby
+
+require 'set'
+
+class UserAgentsFile
+
+  attr_reader :path
+
+  def initialize(path)
+    @path = path
+  end
+
+  def each_line
+    File.open(@path) do |file|
+      file.each_line do |line|
+        line.chomp!
+        yield line
+      end
+    end
+  end
+
+  PRODUCT_REGEXP = /[A-Z][A-Za-z ]+/
+
+  PRODUCT_VERSION_REGEXP = /[\d\.]+/
+
+  EXTENSIONS_REGEXP = /[^\(\)]+(?:\([^\)]+\)[^\(\)]+)?/
+
+  EXTENSION_SEPARATOR = /\s*;\s+/
+
+  REGEXP = /(#{PRODUCT_REGEXP})\/(#{PRODUCT_VERSION_REGEXP})(?:\s+\((#{EXTENSIONS_REGEXP})\))?/
+
+  VERSION_REGEXP = /\d+(?:\.\d+)*/
+
+  def parse
+    each_line do |user_agent|
+      matches = user_agent.scan(REGEXP)
+
+      yield matches
+    end
+  end
+
+  def index_product_combinations
+    product_combinations = Hash.new { |hash,key| hash[key] = 0 }
+
+    parse do |matches|
+      products = matches.map { |(product,_,_)| product }
+
+      product_combinations[products] += 1
+    end
+
+    return product_combinations
+  end
+
+  def index_product_versions(search_product)
+    product_versions = Hash.new { |hash,key| hash[key] = 0 }
+
+    parse do |matches|
+      _,product_version,_ = *matches.find do |(product,_,_)|
+        product == search_product
+      end
+
+      if product_version
+        product_versions[product_version] += 1
+      end
+    end
+
+    return product_versions
+  end
+
+  def index_product_extensions(target_product)
+    product_extensions = Hash.new { |hash,key| hash[key] = 0 }
+
+    parse do |matches|
+      _,_,extensions = matches.find { |(product,_,_)| product == target_product }
+
+      if extensions
+        tree_node = product_extensions
+
+        product_extensions[extensions.split(EXTENSION_SEPARATOR)] += 1
+      end
+    end
+
+    return product_extensions
+  end
+
+  def each_product(name)
+    parse do |matches|
+      product, product_version, extensions = matches.find do |(product,_,_)|
+        product == name
+      end
+
+      if product
+        yield product, product_version, extensions
+      end
+    end
+  end
+
+  def index_macos_versions
+    macos_versions = Set.new
+
+    each_product('Mozilla') do |product,product_version,extensions|
+      if extensions
+        if (match = extensions.match(/Macintosh; Intel Mac OS X (\d+(?:_\d+)*)/))
+          macos_versions << match[1]
+        end
+      end
+    end
+
+    return macos_versions
+  end
+
+  def index_windows_versions
+    windows_versions = Set.new
+
+    each_product('Mozilla') do |product,product_version,extensions|
+      if extensions
+        if (match = extensions.match(/Windows NT (#{VERSION_REGEXP});/))
+            windows_versions << match[1]
+        end
+      end
+    end
+
+    return windows_versions
+  end
+
+  def index_android_versions
+    android_versions = Set.new
+
+    each_product('Mozilla') do |product,product_version,extensions|
+      if extensions
+        if (match = extensions.match(/; Android (#{VERSION_REGEXP});/))
+            android_versions << match[1]
+        end
+      end
+    end
+
+    return android_versions
+  end
+
+  def index_android_devices
+    android_devices = Set.new
+
+    each_product('Mozilla') do |product,product_version,extensions|
+      if (extensions && extensions =~ /; Android [^;]+; /)
+        device = extensions.split(EXTENSION_SEPARATOR).last
+
+        android_devices << device
+      end
+    end
+
+    return android_devices
+  end
+
+  def index_chrome_versions
+    chrome_versions = Set.new
+
+    each_product('Chrome') do |product,product_version,extensions|
+      if product_version
+        chrome_versions << product_version
+      end
+    end
+
+    return chrome_versions
+  end
+
+  def index_firefox_versions
+    firefox_versions = Set.new
+
+    each_product('Mozilla') do |product,product_version,extensions|
+      if extensions
+        if (match = extensions.match(/; rv:(#{VERSION_REGEXP})/))
+          firefox_versions << match[1]
+        end
+      end
+    end
+
+    return firefox_versions
+  end
+
+  def index_gecko_versions
+    gecko_versions = Set.new
+
+    each_product('Gecko') do |product,product_version,_|
+      gecko_versions << product_version
+    end
+
+    return gecko_versions
+  end
+end
+
+if $0 == __FILE__
+  require 'optparse'
+
+  @method      = nil
+  @method_args = []
+  @print_mode  = nil
+
+  optparser = OptionParser.new do |opts|
+    opts.banner = './scripts/index_user_agents [options] FILE'
+
+    opts.on('--products', 'List all product names') do
+      @method = :index_product_combinations
+      @print_mode = :count
+    end
+
+    opts.on('--product-versions PRODUCT','List all versions for a given PRODUCT') do |product|
+      @method      = :index_product_versions
+      @method_args = [product]
+      @print_mode  = :count
+    end
+
+    opts.on('--product-extensions PRODUCT','List all extensions for a given PRODUCT') do |product|
+      @method      = :index_product_extensions
+      @method_args = [product]
+      @print_mode  = :count
+    end
+
+    opts.on('--macos-versions','List all macOS versions') do
+      @method     = :index_macos_versions
+      @print_mode = :list
+    end
+
+    opts.on('--windows-versions','List all Windows versions') do
+      @method     = :index_windows_versions
+      @print_mode = :list
+    end
+
+    opts.on('--android-versions','List all Android versions') do
+      @method     = :index_android_versions
+      @print_mode = :list
+    end
+
+    opts.on('--chrome-versions','List all Chrome versions') do
+      @method     = :index_chrome_versions
+      @print_mode = :list
+    end
+
+    opts.on('--firefox-versions','List all Firefox versions') do
+      @method     = :index_firefox_versions
+      @print_mode = :list
+    end
+
+    opts.on('--gecko-versions','List all Gecko versions') do
+      @method     = :index_gecko_versions
+      @print_mode = :list
+    end
+  end
+
+  args = begin
+           optparser.parse(ARGV)
+         rescue OptionParser::ParseError => error
+           $stderr.puts "./scripts/index_user_agents: #{error.message}"
+           exit -1
+         end
+
+  unless (file_path = args[0])
+    $stderr.puts "./scripts/index_user_agents: must specify a User-Agents FILE"
+    exit -1
+  end
+
+  user_agents = UserAgentsFile.new(file_path)
+
+  unless @method
+    $stderr.puts "./scripts/index_user_agents: must specify atleast one option"
+    $stderr.puts optparser
+    exit -1
+  end
+
+  results = user_agents.send(@method,*@method_args)
+
+  case @print_mode
+  when :count
+    results.sort_by { |value,count| -count }.each do |value,count|
+      puts "#{count}\t#{value}"
+    end
+  when :list
+    results.sort.each do |value|
+      puts "  #{value}"
+    end
+  end
+end
