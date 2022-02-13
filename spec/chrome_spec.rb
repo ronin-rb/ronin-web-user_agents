@@ -338,6 +338,21 @@ describe Ronin::Web::UserAgents::Chrome do
             end
           end
         end
+
+        context "when the `device:` keyword argument is given" do
+          let(:device) { 'SM-A307FN' }
+
+          it "must include the Android device in the extensions" do
+            expect(
+              subject.build(
+                chrome_version: chrome_version,
+                os: os,
+                os_version: os_version,
+                device: device
+              )
+            ).to eq("Mozilla/5.0 (Linux; Android #{android_version}; #{device}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/#{chrome_version} Mobile Safari/537.36")
+          end
+        end
       end
     end
 
@@ -458,7 +473,7 @@ describe Ronin::Web::UserAgents::Chrome do
 
       it "must return a Android Chrome User-Agent string" do
         expect(subject.random(os: os)).to match(
-          %r{^Mozilla/5\.0 \(Linux(?:; (?:arm|arm_64)); Android \d+(?:\.\d+)*\) AppleWebKit/537\.36 \(KHTML, like Gecko\) Chrome/\d+(\.\d+)* (?:Mobile )?Safari/537\.36$}
+          %r{^Mozilla/5\.0 \(Linux(?:; (?:arm|arm_64))?; Android \d+(?:\.\d+)*(?:; [^\(\)]+(?:\([^\)]+\)[^\(\)]+)?)?\) AppleWebKit/537\.36 \(KHTML, like Gecko\) Chrome/\d+(\.\d+)* (?:Mobile )?Safari/537\.36$}
         )
       end
 
@@ -467,7 +482,7 @@ describe Ronin::Web::UserAgents::Chrome do
 
         it "must return a Android Chrome User-Agent string for that Android version" do
           expect(subject.random(os: os, os_version: os_version)).to match(
-            %r{^Mozilla/5\.0 \(Linux(?:; (?:arm|arm_64)); Android 8\.1\) AppleWebKit/537\.36 \(KHTML, like Gecko\) Chrome/\d+(\.\d+)* (?:Mobile )?Safari/537\.36$}
+            %r{^Mozilla/5\.0 \(Linux(?:; (?:arm|arm_64)); Android 8\.1(?:; [^\(\)]+(?:\([^\)]+\)[^\(\)]+)?)?\) AppleWebKit/537\.36 \(KHTML, like Gecko\) Chrome/\d+(\.\d+)* (?:Mobile )?Safari/537\.36$}
           )
         end
       end
@@ -477,7 +492,17 @@ describe Ronin::Web::UserAgents::Chrome do
 
         it "must return a Linux Chrome User-Agent string for that architecture" do
           expect(subject.random(os: os, arch: arch)).to match(
-            %r{^Mozilla/5\.0 \(Linux; arm_64; Android (?:\d+(?:\.\d+)*)\) AppleWebKit/537\.36 \(KHTML, like Gecko\) Chrome/\d+(\.\d+)* (?:Mobile )?Safari/537\.36$}
+            %r{^Mozilla/5\.0 \(Linux; arm_64; Android (?:\d+(?:\.\d+)*)(?:; [^\(\)]+(?:\([^\)]+\)[^\(\)]+)?)?\) AppleWebKit/537\.36 \(KHTML, like Gecko\) Chrome/\d+(\.\d+)* (?:Mobile )?Safari/537\.36$}
+          )
+        end
+      end
+
+      context "and when `device:` is given" do
+        let(:device) { 'SM-A307FN' }
+
+        it "must return a Linux Chrome User-Agent string with that Android device" do
+          expect(subject.random(os: os, device: device)).to match(
+            %r{^Mozilla/5\.0 \(Linux; arm_64; Android (?:\d+(?:\.\d+)*); #{device}\) AppleWebKit/537\.36 \(KHTML, like Gecko\) Chrome/\d+(\.\d+)* (?:Mobile )?Safari/537\.36$}
           )
         end
       end
