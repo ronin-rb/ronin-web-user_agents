@@ -51,7 +51,7 @@ module Ronin
         # @param [:x86_64, :x86, :i686, :aarch64, :arm64, :arm] arch
         #   The hardware architecture. Can be omitted if `os:` is `:android`.
         #
-        # @param [String, nil] device
+        # @param [String, nil] android_device
         #   The Android device. Only supported if `os:` is `:android`.
         #
         # @return [String]
@@ -64,7 +64,7 @@ module Ronin
                        os_version: nil,
                        linux_distro: nil,
                        arch: nil,
-                       device: nil)
+                       android_device: nil)
           case os
           when :windows
             unless os_version
@@ -105,7 +105,7 @@ module Ronin
               chrome_version:  chrome_version,
               android_version: os_version,
               arch:            arch,
-              device:          device
+              android_device:  android_device
             )
           else
             raise(ArgumentError,"unsupported os: value (#{os.inspect})")
@@ -163,7 +163,7 @@ module Ronin
         # @param [:x86_64, :x86, :i686, :aarch64, :arm64, :arm] arch
         #   The hardware architecture. Can be omitted if `os:` is `:android`.
         #
-        # @param [String, nil] device
+        # @param [String, nil] android_device
         #   The Android device. Only supported if `os:` is `:android`.
         #
         # @return [String]
@@ -176,13 +176,14 @@ module Ronin
                         os_version:     KNOWN_OS_VERSIONS[os].sample,
                         linux_distro:   SUPPORTED_LINUX_DISTROS.sample,
                         arch:           SUPPORTED_OS_ARCHES[os].sample,
-                        device:         OS::Android::DEVICES.sample)
+                        android_device: OS::Android::DEVICES.sample)
           build(
             chrome_version: chrome_version,
             os: os,
             os_version: os_version,
             linux_distro: linux_distro,
-            arch: arch
+            arch: arch,
+            android_device: android_device
           )
         end
 
@@ -267,13 +268,13 @@ module Ronin
         # @param [String, nil] device
         #   The optional Android device.
         #
-        def self.build_android(chrome_version: , android_version: , arch: nil, device: nil)
+        def self.build_android(chrome_version: , android_version: , arch: nil, android_device: nil)
           arch = OS::Android::ARCHES.fetch(arch)
 
           extensions = "Linux"
           extensions << "; #{arch}" if arch
           extensions << "; Android #{android_version}"
-          extensions << "; #{device}" if device
+          extensions << "; #{android_device}" if android_device
 
           return "Mozilla/5.0 (#{extensions}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/#{chrome_version} Mobile Safari/537.36"
         end

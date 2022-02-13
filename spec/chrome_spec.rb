@@ -339,8 +339,8 @@ describe Ronin::Web::UserAgents::Chrome do
           end
         end
 
-        context "when the `device:` keyword argument is given" do
-          let(:device) { 'SM-A307FN' }
+        context "when the `android_device:` keyword argument is given" do
+          let(:android_device) { 'SM-A307FN' }
 
           it "must include the Android device in the extensions" do
             expect(
@@ -348,9 +348,9 @@ describe Ronin::Web::UserAgents::Chrome do
                 chrome_version: chrome_version,
                 os: os,
                 os_version: os_version,
-                device: device
+                android_device: android_device
               )
-            ).to eq("Mozilla/5.0 (Linux; Android #{android_version}; #{device}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/#{chrome_version} Mobile Safari/537.36")
+            ).to eq("Mozilla/5.0 (Linux; Android #{android_version}; #{android_device}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/#{chrome_version} Mobile Safari/537.36")
           end
         end
       end
@@ -497,12 +497,12 @@ describe Ronin::Web::UserAgents::Chrome do
         end
       end
 
-      context "and when `device:` is given" do
-        let(:device) { 'SM-A307FN' }
+      context "and when `android_device:` is given" do
+        let(:android_device) { 'SM-A307FN' }
 
         it "must return a Linux Chrome User-Agent string with that Android device" do
-          expect(subject.random(os: os, device: device)).to match(
-            %r{^Mozilla/5\.0 \(Linux; arm_64; Android (?:\d+(?:\.\d+)*); #{device}\) AppleWebKit/537\.36 \(KHTML, like Gecko\) Chrome/\d+(\.\d+)* (?:Mobile )?Safari/537\.36$}
+          expect(subject.random(os: os, android_device: android_device)).to match(
+            %r{^Mozilla/5\.0 \(Linux; arm_64; Android (?:\d+(?:\.\d+)*); #{android_device}\) AppleWebKit/537\.36 \(KHTML, like Gecko\) Chrome/\d+(\.\d+)* (?:Mobile )?Safari/537\.36$}
           )
         end
       end
