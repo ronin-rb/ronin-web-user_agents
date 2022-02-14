@@ -482,7 +482,7 @@ describe Ronin::Web::UserAgents::Chrome do
 
         it "must return a Android Chrome User-Agent string for that Android version" do
           expect(subject.random(os: os, os_version: os_version)).to match(
-            %r{^Mozilla/5\.0 \(Linux(?:; (?:arm|arm_64)); Android 8\.1(?:; [^\(\)]+(?:\([^\)]+\)[^\(\)]+)?)?\) AppleWebKit/537\.36 \(KHTML, like Gecko\) Chrome/\d+(\.\d+)* (?:Mobile )?Safari/537\.36$}
+            %r{^Mozilla/5\.0 \(Linux(?:; (?:arm|arm_64))?; Android 8\.1(?:; [^\(\)]+(?:\([^\)]+\)[^\(\)]+)?)?\) AppleWebKit/537\.36 \(KHTML, like Gecko\) Chrome/\d+(\.\d+)* (?:Mobile )?Safari/537\.36$}
           )
         end
       end
@@ -502,7 +502,7 @@ describe Ronin::Web::UserAgents::Chrome do
 
         it "must return a Linux Chrome User-Agent string with that Android device" do
           expect(subject.random(os: os, android_device: android_device)).to match(
-            %r{^Mozilla/5\.0 \(Linux; arm_64; Android (?:\d+(?:\.\d+)*); #{android_device}\) AppleWebKit/537\.36 \(KHTML, like Gecko\) Chrome/\d+(\.\d+)* (?:Mobile )?Safari/537\.36$}
+            %r{^Mozilla/5\.0 \(Linux(?:; (?:arm|arm_64))?; Android (?:\d+(?:\.\d+)*); #{android_device}\) AppleWebKit/537\.36 \(KHTML, like Gecko\) Chrome/\d+(\.\d+)* (?:Mobile )?Safari/537\.36$}
           )
         end
       end
