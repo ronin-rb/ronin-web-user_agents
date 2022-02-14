@@ -39,11 +39,26 @@ user_agent = Ronin::Web::UserAgents.chrome.random
 # => "Mozilla/5.0 (Linux; Android 5.1.1; Redmi Note 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4688.3 Mobile Safari/537.36"
 ```
 
+Build a specific Chrome `User-Agent` for Android 10.0 string:
+
+```ruby
+Ronin::Web::UserAgents.chrome.build(chrome_version: '100.0.4758.81', os: :
+android, os_version: '10.0')
+# => "Mozilla/5.0 (Linux; Android 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4758.81 Mobile Safari/537.36"
+```
+
 Get a random Firefox `User-Agent` string:
 
 ```ruby
 user_agent = Ronin::Web::UserAgents.firefox.random
 # => "Mozilla/5.0 (Windows NT 6.1; rv:78.0.2) Gecko/20100101 Firefox/78.0.2"
+```
+
+Build a specific Firefox `User-Agent` string for Windows 10:
+
+```ruby
+Ronin::Web::UserAgents.firefox.build(firefox_version: '95.0', os: :windows, os_version: 10)
+# => "Mozilla/5.0 (Windows NT 10.0; rv:100.0.4758.81) Gecko/20100101 Firefox/95.0"
 ```
 
 Get a random `googlebot` `User-Agent` string:
