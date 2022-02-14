@@ -26,6 +26,8 @@ require 'ronin/web/user_agents/firefox'
 # crawlers
 require 'ronin/web/user_agents/google_bot'
 
+require 'ronin/web/user_agents/version'
+
 module Ronin
   module Web
     #

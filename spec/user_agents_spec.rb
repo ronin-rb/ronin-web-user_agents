@@ -3,7 +3,7 @@ require 'ronin/web/user_agents'
 
 describe Ronin::Web::UserAgents do
   it "must define a VERSION constant" do
-    expect(subject.const_defined?('VERSION')).to be(true)
+    expect(subject.const_defined?('VERSION',false)).to be(true)
   end
 
   describe ".chrome" do
