@@ -106,6 +106,7 @@ curl --user-agent "$user_agent" https://www.whatismybrowser.com/detect/what-is-m
 [net/http]: https://rubydoc.info/stdlib/net
 [open-uri]: https://rubydoc.info/stdlib/open-uri
 [mechanize]: https://github.com/sparklemotion/mechanize#readme
+[rest-client]: https://github.com/rest-client/rest-client#readme
 
 ## Requirements
 
