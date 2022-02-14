@@ -1,7 +1,6 @@
 name: ronin-web-user_agents
-summary: random User-Agent strings
-description: |
-  Yet another User-Agent randomiser library.
+summary: generate random User-Agent strings
+description: Yet another User-Agent string generator library.
 
 license: LGPL-3.0
 authors: Postmodern

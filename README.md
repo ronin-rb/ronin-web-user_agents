@@ -13,11 +13,11 @@
 
 ## Description
 
-Yet another `User-Agent` randomiser library.
+Yet another `User-Agent` string generator library.
 
 ## Features
 
-* Generates realistic looking but random `User-Agent` strings from known values.
+* Generates random but realistic `User-Agent` strings from known values.
 * Small footprint.
 * Fast.
 * Zero dependencies.

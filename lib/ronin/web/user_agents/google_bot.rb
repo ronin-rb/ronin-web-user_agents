@@ -1,5 +1,5 @@
 #
-# ronin-web-user_agents - Yet another User-Agent randomiser library.
+# ronin-web-user_agents - Yet another User-Agent string generator library.
 #
 # Copyright (c) 2006-2022 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
