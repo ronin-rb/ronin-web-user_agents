@@ -41,6 +41,10 @@ describe Ronin::Web::UserAgents::OS::Windows do
       expect(subject[:win64]).to eq('Win64; x64')
     end
 
+    it "must map :x86_64 to 'Win64; x64'" do
+      expect(subject[:x86_64]).to eq('Win64; x64')
+    end
+
     it "must map nil to nil" do
       expect(subject[nil]).to be(nil)
     end

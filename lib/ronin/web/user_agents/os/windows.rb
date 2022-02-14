@@ -39,8 +39,9 @@ module Ronin
 
           # Architectures supported by Windows.
           ARCHES = {
-            wow64: 'WOW64',
-            win64: 'Win64; x64',
+            wow64:  'WOW64',
+            win64:  'Win64; x64',
+            x86_64: 'Win64; x64',
 
             nil => nil
           }
