@@ -24,6 +24,8 @@ Yet another `User-Agent` randomiser library.
 
 ## Examples
 
+### Random
+
 Get a random `User-Agent` string:
 
 ```ruby
@@ -51,6 +53,51 @@ Get a random `googlebot` `User-Agent` string:
 user_agent = Ronin::Web::UserAgents.google_bot.random
 # => "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; GoogleBot/2.1; +http://www.google.com/bot.html) Chrome/94.0.4602.7 Safari/537.36"
 ```
+
+Spoof [net/http]'s `User-Agent` string:
+
+```ruby
+require 'net/https'
+
+uri      = URI("https://www.whatismybrowser.com/detect/what-is-my-user-agent")
+headers  = {'User-Agent' => Ronin::Web::UserAgents.chrome.random}
+response = Net::HTTP.get(uri,headers)
+```
+
+### Spoofing
+
+Spoof [open-uri]'s `User-Agent` string:
+
+```ruby
+require 'open-uri'
+
+url       = "https://www.whatismybrowser.com/detect/what-is-my-user-agent"
+headers   = {'User-Agent' => Ronin::Web::UserAgents.chrome.random}
+temp_file = URI.open(url,headers)
+```
+
+Spoof [mechanize]'s `User-Agent` string:
+
+```ruby
+require 'mechanize'
+
+agent = Mechanize.new
+agent.user_agent = Ronin::Web::UserAgents.chrome.random
+page = agent.get("https://www.whatismybrowser.com/detect/what-is-my-user-agent")
+```
+
+Spoof [rest-client]'s `User-Agent` string:
+
+```ruby
+require 'rest-client'
+
+RestClient.get "https://www.whatismybrowser.com/detect/what-is-my-user-agent",
+               user_agent: Ronin::Web::UserAgents.chrome.random
+```
+
+[net/http]: https://rubydoc.info/stdlib/net
+[open-uri]: https://rubydoc.info/stdlib/open-uri
+[mechanize]: https://github.com/sparklemotion/mechanize#readme
 
 ## Requirements
 
