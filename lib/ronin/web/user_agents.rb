@@ -19,7 +19,12 @@
 # along with ronin-web-user_agents.  If not, see <https://www.gnu.org/licenses/>
 #
 
-require 'ronin/web/user_agents/category'
+# browsers
+require 'ronin/web/user_agents/chrome'
+require 'ronin/web/user_agents/firefox'
+
+# crawlers
+require 'ronin/web/user_agents/google_bot'
 
 module Ronin
   module Web
@@ -32,9 +37,9 @@ module Ronin
     #
     #     user_agent = Ronin::Web::UserAgents.random
     #
-    # Get a random `googlebot` `User-Agent` string:
+    # Get a random `GoogleBot` `User-Agent` string:
     #
-    #     user_agent = Ronin::Web::UserAgents.googlebot.random
+    #     user_agent = Ronin::Web::UserAgents.google_bot.random
     #
     # Get a random Chrome `User-Agent` string:
     #
@@ -44,60 +49,12 @@ module Ronin
     #
     #     user_agent = Ronin::Web::UserAgents.firefox.random
     #
-    # Get a random iOS `User-Agent` string:
-    #
-    #     user_agent = Ronin::Web::UserAgents.ios.random
-    #
-    # Get a random Android `User-Agent` string:
-    #
-    #     user_agent = Ronin::Web::UserAgents.android.random
-    #
-    # Get a random Mobile `User-Agent` string:
-    #
-    #     user_agent = Ronin::Web::UserAgents.mobile.random
-    #
-    # Get a random browser `User-Agent` string:
-    #
-    #     user_agent = Ronin::Web::UserAgents.browser.random
-    #
-    # Get a random bot `User-Agent` string:
-    #
-    #     user_agent = Ronin::Web::UserAgents.bots.random
-    #
     module UserAgents
-
-      #
-      # `googlebot` `User-Agent` strings.
-      #
-      # @return [Category]
-      #
-      # @example
-      #   user_agent = Ronin::Web::UserAgents.googlebot.random
-      #
-      # @api public
-      #
-      def self.googlebot
-        @googlebot ||= Category.load('googlebot')
-      end
-
-      #
-      # All bot `User-Agent` strings.
-      #
-      # @return [Category]
-      #
-      # @example
-      #   user_agent = Ronin::Web::UserAgents.bots.random
-      #
-      # @api public
-      #
-      def self.bots
-        @bots ||= googlebot
-      end
 
       #
       # Google Chrome `User-Agent` strings.
       #
-      # @return [Category]
+      # @return [Chrome]
       #
       # @example
       #   user_agent = Ronin::Web::UserAgents.chrome.random
@@ -105,20 +62,20 @@ module Ronin
       # @api public
       #
       def self.chrome
-        @chrome ||= Category.load('chrome')
+        Chrome
       end
 
       #
-      # Alias for {#chrome}.
+      # Alias for {chrome}.
       #
-      # @return [Category]
+      # @return [Chrome]
       #
       # @see chrome
       #
       # @api public
       #
       def self.google_chrome
-        chrome
+        Chrome
       end
 
       #
@@ -132,141 +89,28 @@ module Ronin
       # @api public
       #
       def self.firefox
-        @firefox ||= Category.load('firefox')
+        Firefox
       end
 
       #
-      # Microsoft Edge `User-Agent` strings.
+      # `GoogleBot` `User-Agent` strings.
       #
       # @return [Category]
       #
       # @example
-      #   user_agent = Ronin::Web::UserAgents.edge.random
+      #   user_agent = Ronin::Web::UserAgents.google_bot.random
       #
       # @api public
       #
-      def self.edge
-        @edge ||= Category.load('safari')
+      def self.google_bot
+        GoogleBot
       end
 
       #
-      # Brave `User-Agent` strings.
+      # Returns a random Browser `User-Agent` string from one of the following:
       #
-      # @return [Category]
-      #
-      # @example
-      #   user_agent = Ronin::Web::UserAgents.brave.random
-      #
-      # @api public
-      #
-      def self.brave
-        @brave ||= Category.load('brave')
-      end
-
-      #
-      # Safari `User-Agent` strings.
-      #
-      # @return [Category]
-      #
-      # @example
-      #   user_agent = Ronin::Web::UserAgents.safari.random
-      #
-      # @api public
-      #
-      def self.safari
-        @safari ||= Category.load('safari')
-      end
-
-      #
-      # Opera `User-Agent` strings.
-      #
-      # @return [Category]
-      #
-      # @example
-      #   user_agent = Ronin::Web::UserAgents.opera.random
-      #
-      # @api public
-      #
-      def self.opera
-        @opera ||= Category.load('opera')
-      end
-
-      #
-      # iOS `User-Agent` strings.
-      #
-      # @return [Category]
-      #
-      # @example
-      #   user_agent = Ronin::Web::UserAgents.ios.random
-      #
-      # @api public
-      #
-      def self.ios
-        @ios ||= Category.load('ios')
-      end
-
-      #
-      # Android `User-Agent` strings.
-      #
-      # @return [Category]
-      #
-      # @example
-      #   user_agent = Ronin::Web::UserAgents.android.random
-      #
-      # @api public
-      #
-      def self.android
-        @android ||= Category.load('android')
-      end
-
-      #
-      # All mobile `User-Agent` strings.
-      #
-      # @return [Category]
-      #
-      # @example
-      #   user_agent = Ronin::Web::UserAgents.mobile.random
-      #
-      # @api public
-      #
-      def self.mobile
-        @mobile ||= ios + android
-      end
-
-      #
-      # All browser `User-Agent` strings.
-      #
-      # @return [Category]
-      #
-      # @example
-      #   user_agent = Ronin::Web::UserAgents.browsers.random
-      #
-      # @api public
-      #
-      def self.browsers
-        @browsers ||= chrome + firefox + edge + brave + safari + opera + \
-                      ios + android
-      end
-
-      #
-      # Returns a random `User-Agent` string from one of the categories:
-      #
-      # * {#googlebot}
-      # * {#chrome}
-      # * {#firefox}
-      # * {#edge}
-      # * {#brave}
-      # * {#safari}
-      # * {#opera}
-      # * {#ios}
-      # * {#android}
-      #
-      # @yield [user_agent]
-      #   If a block is given, it will be used to filter the User Agents
-      #   before picking a random User Agent.
-      #
-      # @yieldparam [UserAgent] user_agent
-      #   A User Agent from the category.
+      # * {chrome}
+      # * {firefox}
       #
       # @return [String, nil]
       #   A random `User-Agent` string from the category.
@@ -275,12 +119,8 @@ module Ronin
       #
       def self.random(&block)
         method = [
-          # bots
-          :googlebot,
-          # browsers
-          :chrome, :firefox, :edge, :brave, :safari, :opera,
-          # mobile
-          :ios, :android
+          :chrome,
+          :firefox,
         ].sample
 
         return send(method).random(&block)
