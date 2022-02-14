@@ -17,7 +17,9 @@ Yet another `User-Agent` randomiser library.
 
 ## Features
 
-* Curated lists of common `User-Agent` strings.
+* Generates realistic looking but random `User-Agent` strings from known values.
+* Small footprint.
+* Fast.
 * Zero dependencies.
 
 ## Examples
@@ -26,54 +28,28 @@ Get a random `User-Agent` string:
 
 ```ruby
 user_agent = Ronin::Web::UserAgents.random
-```
-
-Get a random `googlebot` `User-Agent` string:
-
-```ruby
-user_agent = Ronin::Web::UserAgents.googlebot.random
+# => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.230 Safari/537.36"
 ```
 
 Get a random Chrome `User-Agent` string:
 
 ```ruby
 user_agent = Ronin::Web::UserAgents.chrome.random
+# => "Mozilla/5.0 (Linux; Android 5.1.1; Redmi Note 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4688.3 Mobile Safari/537.36"
 ```
 
 Get a random Firefox `User-Agent` string:
 
 ```ruby
 user_agent = Ronin::Web::UserAgents.firefox.random
+# => "Mozilla/5.0 (Windows NT 6.1; rv:78.0.2) Gecko/20100101 Firefox/78.0.2"
 ```
 
-Get a random iOS `User-Agent` string:
+Get a random `googlebot` `User-Agent` string:
 
 ```ruby
-user_agent = Ronin::Web::UserAgents.ios.random
-```
-
-Get a random Android `User-Agent` string:
-
-```ruby
-user_agent = Ronin::Web::UserAgents.android.random
-```
-
-Get a random Mobile `User-Agent` string:
-
-```ruby
-user_agent = Ronin::Web::UserAgents.mobile.random
-```
-
-Get a random browser `User-Agent` string:
-
-```ruby
-user_agent = Ronin::Web::UserAgents.browser.random
-```
-
-Get a random bot `User-Agent` string:
-
-```ruby
-user_agent = Ronin::Web::UserAgents.bots.random
+user_agent = Ronin::Web::UserAgents.google_bot.random
+https://crystal-lang.org/reference/1.3/syntax_and_semantics/index.html
 ```
 
 ## Requirements
