@@ -36,18 +36,22 @@ module Ronin
     # Get a random `User-Agent` string:
     #
     #     user_agent = Ronin::Web::UserAgents.random
-    #
-    # Get a random `GoogleBot` `User-Agent` string:
-    #
-    #     user_agent = Ronin::Web::UserAgents.google_bot.random
+    #     # => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.230 Safari/537.36"
     #
     # Get a random Chrome `User-Agent` string:
     #
     #     user_agent = Ronin::Web::UserAgents.chrome.random
+    #     # => "Mozilla/5.0 (Linux; Android 5.1.1; Redmi Note 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4688.3 Mobile Safari/537.36"
     #
     # Get a random Firefox `User-Agent` string:
     #
     #     user_agent = Ronin::Web::UserAgents.firefox.random
+    #     # => "Mozilla/5.0 (Windows NT 6.1; rv:78.0.2) Gecko/20100101 Firefox/78.0.2"
+    #
+    # Get a random `GoogleBot` `User-Agent` string:
+    #
+    #     user_agent = Ronin::Web::UserAgents.google_bot.random
+    #     # => "GoogleBot/2.1 (+http://www.google.com/bot.html)"
     #
     module UserAgents
 
@@ -58,6 +62,7 @@ module Ronin
       #
       # @example
       #   user_agent = Ronin::Web::UserAgents.chrome.random
+      #   # => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.2495.20 Safari/537.36"
       #
       # @api public
       #
@@ -85,6 +90,7 @@ module Ronin
       #
       # @example
       #   user_agent = Ronin::Web::UserAgents.firefox.random
+      #   # => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.16.0; rv:52.55.07) Gecko/20100101 Firefox/52.55.07" 
       #
       # @api public
       #
@@ -99,6 +105,7 @@ module Ronin
       #
       # @example
       #   user_agent = Ronin::Web::UserAgents.google_bot.random
+      #   # => "GoogleBot/2.1 (+http://www.google.com/bot.html)"
       #
       # @api public
       #
@@ -116,6 +123,10 @@ module Ronin
       #   A random `User-Agent` string from the category.
       #   Note, `nil` can be returned if the given block filter out all User
       #   Agents.
+      #
+      # @example
+      #   Ronin::Web::UserAgents.random
+      #   # => "Mozilla/5.0 (X11; Fedora; Linux i686; en-IE; rv:123.4) Gecko/20100101 Firefox/123.4"
       #
       def self.random(&block)
         method = [
