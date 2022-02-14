@@ -95,6 +95,14 @@ RestClient.get "https://www.whatismybrowser.com/detect/what-is-my-user-agent",
                user_agent: Ronin::Web::UserAgents.chrome.random
 ```
 
+Spoof `curl`'s `User-Agent` string:
+
+```shell
+user_agent="$(ruby -Ilib -r ronin/web/user_agents -e 'print Ronin::Web::UserAgents.chrome.random')"
+
+curl --user-agent "$user_agent" https://www.whatismybrowser.com/detect/what-is-my-user-agent
+```
+
 [net/http]: https://rubydoc.info/stdlib/net
 [open-uri]: https://rubydoc.info/stdlib/open-uri
 [mechanize]: https://github.com/sparklemotion/mechanize#readme
