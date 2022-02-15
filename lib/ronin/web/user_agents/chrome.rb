@@ -112,7 +112,7 @@ module Ronin
           end
         end
 
-        # Knwon Chrome versions
+        # Known Chrome versions
         KNOWN_VERSIONS = File.readlines(
           File.join(DATA_DIR,'chrome','versions.txt'), chomp: true
         )

@@ -99,7 +99,7 @@ module Ronin
             version.tr('.','_')
           }
 
-          # Architectures supporte by macOS.
+          # Architectures supported by macOS.
           ARCHES = {
             intel:  'Intel',
             x86_64: 'Intel'
