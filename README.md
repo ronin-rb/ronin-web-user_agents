@@ -124,7 +124,7 @@ curl --user-agent "$user_agent" https://www.whatismybrowser.com/detect/what-is-m
 
 ## Requirements
 
-* [Ruby] >= 2.7.0
+* [Ruby] >= 3.0.0
 
 ## Install
 
