@@ -198,6 +198,12 @@ module Ronin
         # @param [String, nil] windows_version
         #   The Windows version.
         #
+        # @param [:x86_64, :x86, :i686, :aarch64, :arm64, :arm] arch
+        #   The hardware architecture.
+        #
+        # @return [String]
+        #   The Chrome `User-Agent` string for Windows.
+        #
         def self.build_windows(chrome_version: , windows_version: , arch: nil)
           windows_version = OS::Windows::VERSIONS.fetch(windows_version,windows_version)
           windows_arch    = OS::Windows::ARCHES.fetch(arch) do
@@ -219,6 +225,12 @@ module Ronin
         # @param [String, nil] macos_version
         #   The macOS version.
         #
+        # @param [:x86_64, :x86, :i686, :aarch64, :arm64, :arm] arch
+        #   The hardware architecture.
+        #
+        # @return [String]
+        #   The Chrome `User-Agent` string for macOS.
+        #
         def self.build_macos(chrome_version: , macos_version: , arch: :intel)
           macos_version = OS::MacOS::VERSIONS_UNDERSCORED[macos_version]
           macos_arch    = OS::MacOS::ARCHES.fetch(arch) do
@@ -239,6 +251,9 @@ module Ronin
         #
         # @param [:ubuntu, :fedora, :arch, String, nil] linux_distro
         #   The optional Linux Distro.
+        #
+        # @return [String]
+        #   The Chrome `User-Agent` string for Linux.
         #
         def self.build_linux(chrome_version: , arch: , linux_distro: nil)
           linux_distro = OS::Linux::DISTROS.fetch(linux_distro,linux_distro)
@@ -267,6 +282,9 @@ module Ronin
         #
         # @param [String, nil] android_device
         #   The optional Android device.
+        #
+        # @return [String]
+        #   The Chrome `User-Agent` string for Android.
         #
         def self.build_android(chrome_version: , android_version: , arch: nil, android_device: nil)
           arch = OS::Android::ARCHES.fetch(arch)
