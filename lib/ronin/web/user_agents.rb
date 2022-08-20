@@ -88,7 +88,7 @@ module Ronin
       #
       # Firefox `User-Agent` strings.
       #
-      # @return [Category]
+      # @return [Firefox]
       #
       # @example
       #   user_agent = Ronin::Web::UserAgents.firefox.random
@@ -103,7 +103,7 @@ module Ronin
       #
       # `GoogleBot` `User-Agent` strings.
       #
-      # @return [Category]
+      # @return [GoogleBot]
       #
       # @example
       #   user_agent = Ronin::Web::UserAgents.google_bot.random
