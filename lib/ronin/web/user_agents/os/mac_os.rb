@@ -23,6 +23,11 @@ module Ronin
   module Web
     module UserAgents
       module OS
+        #
+        # Defines information about the macOS Operating System (OS).
+        #
+        # @api private
+        #
         module MacOS
           # Known macOS versions.
           VERSIONS = %w[

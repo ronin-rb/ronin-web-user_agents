@@ -25,6 +25,11 @@ module Ronin
   module Web
     module UserAgents
       module OS
+        #
+        # Defines information about the Android Operating System (OS).
+        #
+        # @api private
+        #
         module Android
           # Known Android versions.
           VERSIONS = %w[

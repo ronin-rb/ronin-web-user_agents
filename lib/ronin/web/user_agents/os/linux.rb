@@ -24,6 +24,8 @@ module Ronin
     module UserAgents
       module OS
         #
+        # Defines information about the Linux Operating System (OS).
+        #
         # @api private
         #
         module Linux
