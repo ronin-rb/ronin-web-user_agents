@@ -66,6 +66,12 @@ module Ronin
         # @param [String] firefox_version
         #   The `rv:...` and `Firefox/...` version.
         #
+        # @param [String, nil] lang
+        #   The optional language identifier to add (ex: `en-GB`).
+        #
+        # @param [:usa, :international, :none, :no, nil] encryption
+        #   The supported encryption strength.
+        #
         # @param [:windows, :macos, :linux, :android] os
         #   The Operating System.
         #
@@ -79,8 +85,11 @@ module Ronin
         # @param [:x86_64, :x86, :i686, :aarch64, :arm64, :arm, nil] arch
         #   The hardware architecture. Can be omitted if `os:` is `:android`.
         #
-        # @param [String, nil] lang
-        #   The optional language identifier to add (ex: `en-GB`).
+        # @param [:mobile, :tablet, nil] device_type
+        #   The optional device type.
+        #
+        # @return [String]
+        #   The Firefox `User-Agent` string.
         #
         # @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent/Firefox
         #
@@ -190,6 +199,12 @@ module Ronin
         # @param [String] firefox_version
         #   The `rv:...` and `Firefox/...` version.
         #
+        # @param [:usa, :international, :none, :no, nil] encryption
+        #   The supported encryption strength.
+        #
+        # @param [String, nil] lang
+        #   The optional language identifier to add (ex: `en-GB`).
+        #
         # @param [:windows, :macos, :linux, :android] os
         #   The Operating System.
         #
@@ -203,8 +218,8 @@ module Ronin
         # @param [:x86_64, :x86, :i686, :aarch64, :arm64, :arm, nil] arch
         #   The hardware architecture. Can be omitted if `os:` is `:android`.
         #
-        # @param [String, nil] lang
-        #   The optional language identifier to add (ex: `en-GB`).
+        # @param [:mobile, :tablet, nil] device_type
+        #   The optional device type.
         #
         # @return [String]
         #   The random `User-Agent` string.
@@ -244,6 +259,9 @@ module Ronin
         # @param [String] firefox_version
         #   The `Firefox/...` version.
         #
+        # @return [String]
+        #   A Firefox `User-Agent` string For Windows.
+        #
         def self.build_windows(windows_version: , arch: , firefox_version: )
           windows_version = OS::Windows::VERSIONS.fetch(windows_version,windows_version)
           windows_arch    = OS::Windows::ARCHES.fetch(arch)
@@ -267,6 +285,9 @@ module Ronin
         # @param [String] firefox_version
         #   The `Firefox/...` version.
         #
+        # @return [String]
+        #   A Firefox `User-Agent` string For macOS.
+        #
         def self.build_macos(arch: :intel, macos_version: , firefox_version: )
           macos_arch = OS::MacOS::ARCHES.fetch(arch)
 
@@ -288,8 +309,14 @@ module Ronin
         # @param [:arm, :arm64, nil] arch
         #   The optional hardware architecture.
         #
+        # @param [String, nil] lang
+        #   The optional language identifier to add (ex: `en-GB`).
+        #
         # @param [String] firefox_version
         #   The `Firefox/...` version.
+        #
+        # @return [String]
+        #   A Firefox `User-Agent` string For Linux.
         #
         def self.build_linux(encryption: nil, linux_distro: nil, arch: nil, lang: nil, firefox_version: )
           encryption_flag = ENCRYPTION.fetch(encryption)
@@ -315,6 +342,9 @@ module Ronin
         #
         # @param [String] firefox_version
         #   The `Firefox/...` version.
+        #
+        # @return [String]
+        #   A Firefox `User-Agent` string For Android.
         #
         def self.build_android(device_type: :mobile, firefox_version: )
           device_type = DEVICE_TYPES.fetch(device_type)
