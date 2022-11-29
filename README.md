@@ -20,6 +20,8 @@ Yet another `User-Agent` string generator library.
 * Generates random but realistic `User-Agent` strings from known values.
 * Small and fast.
 * Zero dependencies.
+* 93% documentation coverage.
+* 99% test coverage.
 
 ## Examples
 
