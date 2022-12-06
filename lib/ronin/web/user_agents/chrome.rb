@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #
 # ronin-web-user_agents - Yet another User-Agent string generator library.
 #
@@ -259,7 +260,7 @@ module Ronin
                            raise(ArgumentError,"unknown arch: value (#{arch.inspect})")
                          end
 
-          extensions = "X11"
+          extensions = String.new("X11")
           extensions << "; #{linux_distro}" if linux_distro
           extensions << "; Linux #{linux_arch}"
 
@@ -287,7 +288,7 @@ module Ronin
         def self.build_android(chrome_version: , android_version: , arch: nil, android_device: nil)
           arch = OS::Android::ARCHES.fetch(arch)
 
-          extensions = "Linux"
+          extensions = String.new("Linux")
           extensions << "; #{arch}" if arch
           extensions << "; Android #{android_version}"
           extensions << "; #{android_device}" if android_device

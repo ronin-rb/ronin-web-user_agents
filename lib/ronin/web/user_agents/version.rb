@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #
 # ronin-web-user_agents - Yet another User-Agent string generator library.
 #

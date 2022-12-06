@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #
 # ronin-web-user_agents - Yet another User-Agent string generator library.
 #
@@ -321,7 +322,7 @@ module Ronin
           linux_arch    = OS::Linux::ARCHES[arch]
           linux_distro  = OS::Linux::DISTROS.fetch(linux_distro,linux_distro)
 
-          extensions = "X11"
+          extensions = String.new("X11")
           extensions << "; #{encryption_flag}" if encryption_flag
           extensions << "; #{linux_distro}"  if linux_distro
           extensions << "; Linux"
