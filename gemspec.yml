@@ -12,7 +12,7 @@ metadata:
   documentation_uri: https://ronin-rb.dev/docs/ronin-web-user_agents
   source_code_uri:   https://github.com/ronin-rb/ronin-web-user_agents
   bug_tracker_uri:   https://github.com/ronin-rb/ronin-web-user_agents/issues
-  changelog_uri:     https://github.com/ronin-rb/ronin-web-user_agents/blob/master/ChangeLog.md
+  changelog_uri:     https://github.com/ronin-rb/ronin-web-user_agents/blob/main/ChangeLog.md
   rubygems_mfa_required: 'true'
 
 required_ruby_version: ">= 3.0.0"
