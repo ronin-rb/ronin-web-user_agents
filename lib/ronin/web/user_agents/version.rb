@@ -22,7 +22,7 @@ module Ronin
   module Web
     module UserAgents
       # ronin-web-user_agents version
-      VERSION = '0.1.0.beta1'
+      VERSION = '0.1.0'
     end
   end
 end
