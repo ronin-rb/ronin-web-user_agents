@@ -45,8 +45,7 @@ user_agent = Ronin::Web::UserAgents.chrome.random
 Build a specific Chrome `User-Agent` for Android 10.0 string:
 
 ```ruby
-Ronin::Web::UserAgents.chrome.build(chrome_version: '100.0.4758.81', os: :
-android, os_version: '10.0')
+Ronin::Web::UserAgents.chrome.build(chrome_version: '100.0.4758.81', os: :android, os_version: '10.0')
 # => "Mozilla/5.0 (Linux; Android 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4758.81 Mobile Safari/537.36"
 ```
 
