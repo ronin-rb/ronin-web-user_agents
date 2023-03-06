@@ -129,13 +129,13 @@ module Ronin
       #   Ronin::Web::UserAgents.random
       #   # => "Mozilla/5.0 (X11; Fedora; Linux i686; en-IE; rv:123.4) Gecko/20100101 Firefox/123.4"
       #
-      def self.random(&block)
+      def self.random
         method = [
           :chrome,
           :firefox,
         ].sample
 
-        return send(method).random(&block)
+        return send(method).random
       end
     end
   end
