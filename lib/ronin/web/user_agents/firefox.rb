@@ -33,7 +33,6 @@ module Ronin
       # @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent/Firefox
       #
       module Firefox
-
         # The default `Gecko/...` version.
         #
         # @note: On desktop, the `Gecko/...` version is hardcoded to `20100101`
@@ -244,8 +243,6 @@ module Ronin
           )
         end
 
-        private
-
         #
         # Builds a Firefox `User-Agent` string for Windows.
         #
@@ -319,12 +316,12 @@ module Ronin
         #
         def self.build_linux(encryption: nil, linux_distro: nil, arch: nil, lang: nil, firefox_version: )
           encryption_flag = ENCRYPTION.fetch(encryption)
-          linux_arch    = OS::Linux::ARCHES[arch]
-          linux_distro  = OS::Linux::DISTROS.fetch(linux_distro,linux_distro)
+          linux_arch      = OS::Linux::ARCHES[arch]
+          linux_distro    = OS::Linux::DISTROS.fetch(linux_distro,linux_distro)
 
           extensions = String.new("X11")
           extensions << "; #{encryption_flag}" if encryption_flag
-          extensions << "; #{linux_distro}"  if linux_distro
+          extensions << "; #{linux_distro}" if linux_distro
           extensions << "; Linux"
           extensions << " #{linux_arch}" if linux_arch
           extensions << "; #{lang}" if lang
@@ -353,7 +350,6 @@ module Ronin
 
           return "Mozilla/5.0 (#{extensions}) Gecko/#{firefox_version} Firefox/#{firefox_version}"
         end
-
       end
     end
   end

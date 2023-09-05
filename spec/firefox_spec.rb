@@ -33,7 +33,6 @@ describe Ronin::Web::UserAgents::Firefox do
           end
 
           Ronin::Web::UserAgents::OS::Windows::ARCHES.each do |arch_id,arch_string|
-
             context "and when `arch: #{arch_id.inspect}` is given" do
               let(:arch)         { arch_id     }
               let(:windows_arch) { arch_string }
@@ -375,7 +374,7 @@ describe Ronin::Web::UserAgents::Firefox do
 
         it "must return a Linux Chrome User-Agent string for that Linux Distro" do
           expect(subject.random(os: os, linux_distro: linux_distro)).to match(
-          %r{\AMozilla/5\.0 \(X11; Ubuntu; Linux (?:x86_64|aarch64|i686)(?:; [a-z]+(?:-[A-Z]+)?)?; rv:\d+(?:\.\d+)*\) Gecko/(?:20100101|\d+(?:\.\d+)*) Firefox/\d+(\.\d+)*\z}
+            %r{\AMozilla/5\.0 \(X11; Ubuntu; Linux (?:x86_64|aarch64|i686)(?:; [a-z]+(?:-[A-Z]+)?)?; rv:\d+(?:\.\d+)*\) Gecko/(?:20100101|\d+(?:\.\d+)*) Firefox/\d+(\.\d+)*\z}
           )
         end
       end
@@ -390,7 +389,7 @@ describe Ronin::Web::UserAgents::Firefox do
         end
       end
     end
- 
+
     context "when `os: :android` is given" do
       let(:os) { :android }
 

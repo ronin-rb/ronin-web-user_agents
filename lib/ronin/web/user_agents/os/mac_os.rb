@@ -97,8 +97,10 @@ module Ronin
             '11.55'   => '11_55',
             '11.6.3'  => '11_6_3',
             '12.2.0'  => '12_2_0',
-            '16.55'   => '16_55',
+            '16.55'   => '16_55'
           }
+
+          # Set a default `VERSIONS_UNDERSCORED` rule of `X.Y` -> `X_Y`.
           VERSIONS_UNDERSCORED.default_proc = ->(hash,version) {
             version.tr('.','_')
           }
@@ -108,7 +110,6 @@ module Ronin
             intel:  'Intel',
             x86_64: 'Intel'
           }
-
         end
       end
     end

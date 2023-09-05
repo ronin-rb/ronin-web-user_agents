@@ -64,7 +64,6 @@ module Ronin
         # @api public
         #
         def self.build(crawler: :search, compatible: nil, chrome_version: nil)
-
           case crawler
           when :image
             "Googlebot-Image/1.0"

@@ -55,7 +55,6 @@ module Ronin
     #     # => "GoogleBot/2.1 (+http://www.google.com/bot.html)"
     #
     module UserAgents
-
       #
       # Google Chrome `User-Agent` strings.
       #
@@ -91,7 +90,7 @@ module Ronin
       #
       # @example
       #   user_agent = Ronin::Web::UserAgents.firefox.random
-      #   # => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.16.0; rv:52.55.07) Gecko/20100101 Firefox/52.55.07" 
+      #   # => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.16.0; rv:52.55.07) Gecko/20100101 Firefox/52.55.07"
       #
       # @api public
       #
@@ -132,7 +131,7 @@ module Ronin
       def self.random
         method = [
           :chrome,
-          :firefox,
+          :firefox
         ].sample
 
         return send(method).random

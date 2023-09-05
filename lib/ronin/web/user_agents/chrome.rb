@@ -30,7 +30,6 @@ module Ronin
       # Represents every possible Chrome `User-Agent` string.
       #
       module Chrome
-
         #
         # Builds a new Chrome `User-Agent` string.
         #
@@ -185,8 +184,6 @@ module Ronin
             android_device: android_device
           )
         end
-
-        private
 
         #
         # Builds a Chrome `User-Agent` string for Windows.

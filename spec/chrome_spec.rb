@@ -32,7 +32,6 @@ describe Ronin::Web::UserAgents::Chrome do
           end
 
           Ronin::Web::UserAgents::OS::Windows::ARCHES.each do |arch_id,arch_string|
-
             context "and when `arch: #{arch_id.inspect}` is given" do
               let(:arch)         { arch_id     }
               let(:windows_arch) { arch_string }
@@ -452,7 +451,7 @@ describe Ronin::Web::UserAgents::Chrome do
 
         it "must return a Linux Chrome User-Agent string for that Linux Distro" do
           expect(subject.random(os: os, linux_distro: linux_distro)).to match(
-          %r{\AMozilla/5\.0 \(X11; Ubuntu; Linux (?:x86_64|aarch64|i686)\) AppleWebKit/537\.36 \(KHTML, like Gecko\) Chrome/\d+(\.\d+)* (?:Mobile )?Safari/537\.36\z}
+            %r{\AMozilla/5\.0 \(X11; Ubuntu; Linux (?:x86_64|aarch64|i686)\) AppleWebKit/537\.36 \(KHTML, like Gecko\) Chrome/\d+(\.\d+)* (?:Mobile )?Safari/537\.36\z}
           )
         end
       end
@@ -462,12 +461,12 @@ describe Ronin::Web::UserAgents::Chrome do
 
         it "must return a Linux Chrome User-Agent string for that architecture" do
           expect(subject.random(os: os, arch: arch)).to match(
-          %r{\AMozilla/5\.0 \(X11(?:; (?:Ubuntu|Fedora|Arch))?; Linux aarch64\) AppleWebKit/537\.36 \(KHTML, like Gecko\) Chrome/\d+(\.\d+)* (?:Mobile )?Safari/537\.36\z}
+            %r{\AMozilla/5\.0 \(X11(?:; (?:Ubuntu|Fedora|Arch))?; Linux aarch64\) AppleWebKit/537\.36 \(KHTML, like Gecko\) Chrome/\d+(\.\d+)* (?:Mobile )?Safari/537\.36\z}
           )
         end
       end
     end
- 
+
     context "when `os: :android` is given" do
       let(:os) { :android }
 

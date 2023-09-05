@@ -1,7 +1,11 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require 'set'
 
+#
+# A `User-Agent` strings txt file parser.
+#
 class UserAgentsFile
 
   attr_reader :path
@@ -27,7 +31,7 @@ class UserAgentsFile
 
   EXTENSION_SEPARATOR = /\s*;\s+/
 
-  REGEXP = /(#{PRODUCT_REGEXP})\/(#{PRODUCT_VERSION_REGEXP})(?:\s+\((#{EXTENSIONS_REGEXP})\))?/
+  REGEXP = %r{(#{PRODUCT_REGEXP})/(#{PRODUCT_VERSION_REGEXP})(?:\s+\((#{EXTENSIONS_REGEXP})\))?}
 
   VERSION_REGEXP = /\d+(?:\.\d+)*/
 
@@ -55,7 +59,7 @@ class UserAgentsFile
     product_versions = Hash.new { |hash,key| hash[key] = 0 }
 
     parse do |matches|
-      _,product_version,_ = *matches.find do |(product,_,_)|
+      _, product_version, = *matches.find do |(product,_,_)|
         product == search_product
       end
 
@@ -74,8 +78,6 @@ class UserAgentsFile
       _,_,extensions = matches.find { |(product,_,_)| product == target_product }
 
       if extensions
-        tree_node = product_extensions
-
         product_extensions[extensions.split(EXTENSION_SEPARATOR)] += 1
       end
     end
@@ -115,7 +117,7 @@ class UserAgentsFile
     each_product('Mozilla') do |product,product_version,extensions|
       if extensions
         if (match = extensions.match(/Windows NT (#{VERSION_REGEXP});/))
-            windows_versions << match[1]
+          windows_versions << match[1]
         end
       end
     end
@@ -129,7 +131,7 @@ class UserAgentsFile
     each_product('Mozilla') do |product,product_version,extensions|
       if extensions
         if (match = extensions.match(/; Android (#{VERSION_REGEXP});/))
-            android_versions << match[1]
+          android_versions << match[1]
         end
       end
     end
@@ -199,7 +201,7 @@ if $0 == __FILE__
     opts.banner = './scripts/index_user_agents [options] FILE'
 
     opts.on('--products', 'List all product names') do
-      @method = :index_product_combinations
+      @method     = :index_product_combinations
       @print_mode = :count
     end
 
@@ -249,21 +251,21 @@ if $0 == __FILE__
   args = begin
            optparser.parse(ARGV)
          rescue OptionParser::ParseError => error
-           $stderr.puts "./scripts/index_user_agents: #{error.message}"
-           exit -1
+           warn "./scripts/index_user_agents: #{error.message}"
+           exit(-1)
          end
 
   unless (file_path = args[0])
-    $stderr.puts "./scripts/index_user_agents: must specify a User-Agents FILE"
-    exit -1
+    warn "./scripts/index_user_agents: must specify a User-Agents FILE"
+    exit(-1)
   end
 
   user_agents = UserAgentsFile.new(file_path)
 
   unless @method
-    $stderr.puts "./scripts/index_user_agents: must specify atleast one option"
-    $stderr.puts optparser
-    exit -1
+    warn "./scripts/index_user_agents: must specify atleast one option"
+    warn optparser
+    exit(-1)
   end
 
   results = user_agents.send(@method,*@method_args)
