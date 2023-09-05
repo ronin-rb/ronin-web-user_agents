@@ -293,7 +293,7 @@ describe Ronin::Web::UserAgents::Firefox do
   describe ".random" do
     it "must return a random Chrome User-Agent string" do
       expect(subject.random).to match(
-        %r{^Mozilla/5\.0 \([^\)]+\) Gecko/(?:20100101|\d+(?:\.\d+)*) Firefox/\d+(\.\d+)*$}
+        %r{\AMozilla/5\.0 \([^\)]+\) Gecko/(?:20100101|\d+(?:\.\d+)*) Firefox/\d+(\.\d+)*\z}
       )
     end
 
@@ -306,7 +306,7 @@ describe Ronin::Web::UserAgents::Firefox do
 
       it "must return a random Windows Chrome User-Agent string" do
         expect(subject.random(os: os)).to match(
-          %r{^Mozilla/5\.0 \(Windows NT \d+(?:\.\d+)*(?:; (?:WOW64|Win64; x64))?; rv:\d+(?:\.\d+)*\) Gecko/(?:20100101|\d+(?:\.\d+)*) Firefox/\d+(\.\d+)*$}
+          %r{\AMozilla/5\.0 \(Windows NT \d+(?:\.\d+)*(?:; (?:WOW64|Win64; x64))?; rv:\d+(?:\.\d+)*\) Gecko/(?:20100101|\d+(?:\.\d+)*) Firefox/\d+(\.\d+)*\z}
         )
       end
 
@@ -315,7 +315,7 @@ describe Ronin::Web::UserAgents::Firefox do
 
         it "must return a random Windows Chrome User-Agent string for that version of Windows" do
           expect(subject.random(os: os, os_version: os_version)).to match(
-            %r{^Mozilla/5\.0 \(Windows NT 10\.0(?:; (?:WOW64|Win64; x64))?; rv:\d+(?:\.\d+)*\) Gecko/(?:20100101|\d+(?:\.\d+)*) Firefox/\d+(\.\d+)*$}
+            %r{\AMozilla/5\.0 \(Windows NT 10\.0(?:; (?:WOW64|Win64; x64))?; rv:\d+(?:\.\d+)*\) Gecko/(?:20100101|\d+(?:\.\d+)*) Firefox/\d+(\.\d+)*\z}
           )
         end
       end
@@ -325,7 +325,7 @@ describe Ronin::Web::UserAgents::Firefox do
 
         it "must return a random Windows Chrome User-Agent string for the WOW64 architecture" do
           expect(subject.random(os: os, arch: arch)).to match(
-            %r{^Mozilla/5\.0 \(Windows NT \d+(?:\.\d+)*; WOW64; rv:\d+(?:\.\d+)*\) Gecko/(?:20100101|\d+(?:\.\d+)*) Firefox/\d+(\.\d+)*$}
+            %r{\AMozilla/5\.0 \(Windows NT \d+(?:\.\d+)*; WOW64; rv:\d+(?:\.\d+)*\) Gecko/(?:20100101|\d+(?:\.\d+)*) Firefox/\d+(\.\d+)*\z}
           )
         end
       end
@@ -335,7 +335,7 @@ describe Ronin::Web::UserAgents::Firefox do
 
         it "must return a random Windows Chrome User-Agent string for the WOW64 architecture" do
           expect(subject.random(os: os, arch: arch)).to match(
-            %r{^Mozilla/5\.0 \(Windows NT \d+(?:\.\d+)*; Win64; x64; rv:\d+(?:\.\d+)*\) Gecko/(?:20100101|\d+(?:\.\d+)*) Firefox/\d+(\.\d+)*$}
+            %r{\AMozilla/5\.0 \(Windows NT \d+(?:\.\d+)*; Win64; x64; rv:\d+(?:\.\d+)*\) Gecko/(?:20100101|\d+(?:\.\d+)*) Firefox/\d+(\.\d+)*\z}
           )
         end
       end
@@ -346,7 +346,7 @@ describe Ronin::Web::UserAgents::Firefox do
 
       it "must return a macOS Chrome User-Agent string" do
         expect(subject.random(os: os)).to match(
-          %r{^Mozilla/5\.0 \(Macintosh; Intel Mac OS X \d+(\.\d+){1,2}; rv:\d+(?:\.\d+)*\) Gecko/(?:20100101|\d+(?:\.\d+)*) Firefox/\d+(\.\d+)*$}
+          %r{\AMozilla/5\.0 \(Macintosh; Intel Mac OS X \d+(\.\d+){1,2}; rv:\d+(?:\.\d+)*\) Gecko/(?:20100101|\d+(?:\.\d+)*) Firefox/\d+(\.\d+)*\z}
         )
       end
 
@@ -355,7 +355,7 @@ describe Ronin::Web::UserAgents::Firefox do
 
         it "must return a macOS Chrome User-Agent string for that macOS version" do
           expect(subject.random(os: os, os_version: os_version)).to match(
-            %r{^Mozilla/5\.0 \(Macintosh; Intel Mac OS X 10\.11\.12; rv:\d+(?:\.\d+)*\) Gecko/(?:20100101|\d+(?:\.\d+)*) Firefox/\d+(\.\d+)*$}
+            %r{\AMozilla/5\.0 \(Macintosh; Intel Mac OS X 10\.11\.12; rv:\d+(?:\.\d+)*\) Gecko/(?:20100101|\d+(?:\.\d+)*) Firefox/\d+(\.\d+)*\z}
           )
         end
       end
@@ -366,7 +366,7 @@ describe Ronin::Web::UserAgents::Firefox do
 
       it "must return a Linux Chrome User-Agent string" do
         expect(subject.random(os: os)).to match(
-          %r{^Mozilla/5\.0 \(X11(?:; (?:Ubuntu|Fedora|Arch))?; Linux (?:x86_64|aarch64|i686)(?:; [a-z]+(?:-[A-Z]+)?)?; rv:\d+(?:\.\d+)*\) Gecko/(?:20100101|\d+(?:\.\d+)*) Firefox/\d+(\.\d+)*$}
+          %r{\AMozilla/5\.0 \(X11(?:; (?:Ubuntu|Fedora|Arch))?; Linux (?:x86_64|aarch64|i686)(?:; [a-z]+(?:-[A-Z]+)?)?; rv:\d+(?:\.\d+)*\) Gecko/(?:20100101|\d+(?:\.\d+)*) Firefox/\d+(\.\d+)*\z}
         )
       end
 
@@ -375,7 +375,7 @@ describe Ronin::Web::UserAgents::Firefox do
 
         it "must return a Linux Chrome User-Agent string for that Linux Distro" do
           expect(subject.random(os: os, linux_distro: linux_distro)).to match(
-          %r{^Mozilla/5\.0 \(X11; Ubuntu; Linux (?:x86_64|aarch64|i686)(?:; [a-z]+(?:-[A-Z]+)?)?; rv:\d+(?:\.\d+)*\) Gecko/(?:20100101|\d+(?:\.\d+)*) Firefox/\d+(\.\d+)*$}
+          %r{\AMozilla/5\.0 \(X11; Ubuntu; Linux (?:x86_64|aarch64|i686)(?:; [a-z]+(?:-[A-Z]+)?)?; rv:\d+(?:\.\d+)*\) Gecko/(?:20100101|\d+(?:\.\d+)*) Firefox/\d+(\.\d+)*\z}
           )
         end
       end
@@ -385,7 +385,7 @@ describe Ronin::Web::UserAgents::Firefox do
 
         it "must return a Linux Chrome User-Agent string for that architecture" do
           expect(subject.random(os: os, arch: arch)).to match(
-            %r{^Mozilla/5\.0 \(X11(?:; (?:Ubuntu|Fedora|Arch))?; Linux aarch64(?:; [a-zA-Z-]+)?; rv:\d+(?:\.\d+)*\) Gecko/(?:20100101|\d+(?:\.\d+)*) Firefox/\d+(\.\d+)*$}
+            %r{\AMozilla/5\.0 \(X11(?:; (?:Ubuntu|Fedora|Arch))?; Linux aarch64(?:; [a-zA-Z-]+)?; rv:\d+(?:\.\d+)*\) Gecko/(?:20100101|\d+(?:\.\d+)*) Firefox/\d+(\.\d+)*\z}
           )
         end
       end
@@ -396,7 +396,7 @@ describe Ronin::Web::UserAgents::Firefox do
 
       it "must return a Android Chrome User-Agent string" do
         expect(subject.random(os: os)).to match(
-          %r{^Mozilla/5\.0 \(Android(?:; (?:Mobile|Tablet))?; rv:\d+(?:\.\d+)*\) Gecko/(?:20100101|\d+(?:\.\d+)*) Firefox/\d+(\.\d+)*$}
+          %r{\AMozilla/5\.0 \(Android(?:; (?:Mobile|Tablet))?; rv:\d+(?:\.\d+)*\) Gecko/(?:20100101|\d+(?:\.\d+)*) Firefox/\d+(\.\d+)*\z}
         )
       end
 
@@ -405,7 +405,7 @@ describe Ronin::Web::UserAgents::Firefox do
 
         it "must return a Linux Firefox User-Agent string with that device type" do
           expect(subject.random(os: os, device_type: device_type)).to match(
-            %r{^Mozilla/5\.0 \(Android; Tablet; rv:\d+(?:\.\d+)*\) Gecko/(?:20100101|\d+(?:\.\d+)*) Firefox/\d+(\.\d+)*$}
+            %r{\AMozilla/5\.0 \(Android; Tablet; rv:\d+(?:\.\d+)*\) Gecko/(?:20100101|\d+(?:\.\d+)*) Firefox/\d+(\.\d+)*\z}
           )
         end
       end
