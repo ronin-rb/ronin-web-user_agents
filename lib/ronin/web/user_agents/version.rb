@@ -2,7 +2,7 @@
 #
 # ronin-web-user_agents - Yet another User-Agent string generator library.
 #
-# Copyright (c) 2006-2023 Hal Brodigan (postmodern.mod3 at gmail.com)
+# Copyright (c) 2006-2024 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
 # ronin-web-user_agents is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
