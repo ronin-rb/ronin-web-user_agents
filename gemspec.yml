@@ -2,7 +2,7 @@ name: ronin-web-user_agents
 summary: Generate random but realistic User-Agent strings
 description: Yet another User-Agent string generator library.
 
-license: LGPL-3.0
+license: LGPL-3.0-or-later
 authors: Postmodern
 email: postmodern.mod3@gmail.com
 homepage: https://ronin-rb.dev/
