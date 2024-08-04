@@ -18,7 +18,7 @@
 # along with ronin-web-user_agents.  If not, see <https://www.gnu.org/licenses/>
 #
 
-require 'ronin/web/user_agents/data_dir'
+require_relative '../data_dir'
 
 module Ronin
   module Web

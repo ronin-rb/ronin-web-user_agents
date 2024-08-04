@@ -19,13 +19,13 @@
 #
 
 # browsers
-require 'ronin/web/user_agents/chrome'
-require 'ronin/web/user_agents/firefox'
+require_relative 'user_agents/chrome'
+require_relative 'user_agents/firefox'
 
 # crawlers
-require 'ronin/web/user_agents/google_bot'
+require_relative 'user_agents/google_bot'
 
-require 'ronin/web/user_agents/version'
+require_relative 'user_agents/version'
 
 module Ronin
   module Web

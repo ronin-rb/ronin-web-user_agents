@@ -18,7 +18,7 @@
 # along with ronin-web-user_agents.  If not, see <https://www.gnu.org/licenses/>
 #
 
-require 'ronin/web/user_agents/chrome'
+require_relative 'chrome'
 
 module Ronin
   module Web

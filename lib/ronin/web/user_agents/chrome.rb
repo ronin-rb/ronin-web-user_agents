@@ -18,10 +18,10 @@
 # along with ronin-web-user_agents.  If not, see <https://www.gnu.org/licenses/>
 #
 
-require 'ronin/web/user_agents/os/windows'
-require 'ronin/web/user_agents/os/mac_os'
-require 'ronin/web/user_agents/os/linux'
-require 'ronin/web/user_agents/os/android'
+require_relative 'os/windows'
+require_relative 'os/mac_os'
+require_relative 'os/linux'
+require_relative 'os/android'
 
 module Ronin
   module Web
