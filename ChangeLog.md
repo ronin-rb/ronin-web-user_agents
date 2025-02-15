@@ -1,3 +1,7 @@
+### 0.1.1 / 2025-02-14
+
+* Use `require_relative` to improve load times.
+
 ### 0.1.0 / 2023-02-01
 
 * Extracted and refactored from [ronin-web](https://github.com/ronin-rb/ronin-web/tree/v0.3.0.rc1).
